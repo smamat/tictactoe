@@ -15,19 +15,18 @@ function List(props) {
     return (
       <li>
         <button onClick={props.onClick}>
-          {}
+          <b>{props.children}</b>
         </button>
       </li>
     );
   }
-
-    return (
-      <li>
-        <button onClick={props.onClick}>
-          {props.label}
-        </button>
-      </li>
-    );
+  return
+    <li>
+      <button onClick={props.onClick}>
+        {props.children}
+      </button>
+    </li>
+  );
 
 }
 
@@ -115,6 +114,7 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
     const movePos = this.state.movePos;
 
+
     const moves = history.map((step, move) => {
       const col = movePos[move]%3;
       const row = (movePos[move]-col)/3;
@@ -122,16 +122,14 @@ class Game extends React.Component {
         'Go to move #' + move + ' (' + col + ',' + row + ')' :
         'Go to game start';
       return (
-        <List
-          key={move}
+        <List key={move}
           onClick={() => this.jumpTo(move)}
-          label={desc}
-          stepNo={this.state.stepNumber}
-          isBold={false}
-        >
+          isBold={move===this.state.stepNumber}
+          >
+          {desc}
+        </List>
       );
 
-          //<button onClick={() => this.jumpTo(move)}>{desc}</button>
     });
 
     let status;
