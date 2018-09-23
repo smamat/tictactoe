@@ -3,13 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  //const className = props.winning ? "squareWin" : "square";
-  var className;
-  if (props.winning) {
-    className = "squareWin";
-  } else {
-    className = "square";
-  }
+  const className = props.winning ? "square win" : "square";
 
   return (
     <button className={className} onClick={props.onClick}>
@@ -106,7 +100,6 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
     const movePos = this.state.movePos;
 
-
     const moves = history.map((step, move) => {
       const col = movePos[move]%3;
       const row = (movePos[move]-col)/3;
@@ -130,6 +123,9 @@ class Game extends React.Component {
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
+
+    if (this.state.history.length === 10)
+      status = "It's a draw";
 
     return (
       <div className="game">
